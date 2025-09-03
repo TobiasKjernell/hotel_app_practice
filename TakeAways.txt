@@ -1,0 +1,23 @@
+React Query 
+------------
+
+powerful lib for managing remote (server) states.
+
+data is cached (stored), which means if component A is fetching 'cars' 
+react Query will store it and if component b is fetching 'cars' later, it will
+take the stored info from react query instead of fetching from server.
+In this case, component b will get a instant feedback on information.
+
+automatic error and loading states
+
+automatic re-fetching to keep state synched
+
+pre-fetching (ex: 2 different pages, we have info for the 'other' page already)
+
+offline support
+
+Example call:
+const x = useQuery({
+    queryKey: ['cabin'],
+    queryFn: getCabins
+  })
