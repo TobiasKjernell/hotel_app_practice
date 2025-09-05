@@ -21,3 +21,36 @@ const x = useQuery({
     queryKey: ['cabin'],
     queryFn: getCabins
   })
+
+  queryKey: identifies it's specific query.
+  So if you example going to delete a item from database, you will have to
+  'mutate' it and make sure it updates on client aswell.
+  By so:   const { isPending, mutate } = useMutation({
+    mutationFn: (id) => deleteCabin(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['cabins']
+      });  
+    },
+    onError: err => alert(err.message)
+  })
+
+  By getting the current queryClient( useQueryClient hook ) you can use
+  quertClient.invalidateQueries(). You use this one to mutate etc delete/update
+  and also to tell it to refetch.
+
+
+  ---- TOASTS 
+  Pop-up notifications
+  npm i react-hot-toast
+
+  ---- React Forms
+  npm i react-hook-form
+  const { register, handleSubmit} = useForm();
+Usages---
+  1.<Input type="number" id="discount" defaultValue={0} {...register('discount')} />
+  2. <Form onSubmit={() => handleSubmit(handleOnSubmit)}> 
+   const handleOnSubmit = (data) => {
+    //put your code in here. data = form input info.
+  }
+
