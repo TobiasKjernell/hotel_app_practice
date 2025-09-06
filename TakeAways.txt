@@ -49,7 +49,8 @@ const x = useQuery({
   const { register, handleSubmit} = useForm();
 Usages---
   1.<Input type="number" id="discount" defaultValue={0} {...register('discount')} />
-  2. <Form onSubmit={handleSubmit(handleOnSubmit)}> 
+  2. <Form onSubmit={handleSubmit(handleOnSubmit, onError)}>
+  second paramter in handleSubmit is a error callback.  
 
    const handleOnSubmit = (data) => {
     //put your code in here. data = form input info.
