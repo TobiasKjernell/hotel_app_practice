@@ -49,8 +49,12 @@ const x = useQuery({
   const { register, handleSubmit} = useForm();
 Usages---
   1.<Input type="number" id="discount" defaultValue={0} {...register('discount')} />
-  2. <Form onSubmit={() => handleSubmit(handleOnSubmit)}> 
+  2. <Form onSubmit={handleSubmit(handleOnSubmit)}> 
+
    const handleOnSubmit = (data) => {
     //put your code in here. data = form input info.
+    //data is the return of all form inputs in a object.
   }
+
+
 
