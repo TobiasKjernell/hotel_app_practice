@@ -4,46 +4,29 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { keepPreviousData, useMutation, useQueryClient } from "@tanstack/react-query";
-import { createEditCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow";
+import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 
 function CreateCabinForm({ cabinToEdit = {} }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
-  const queryClient = useQueryClient();
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues:
       isEditSession ? editValues : {}
   });
+
   const { errors } = formState;
-  const { isPending, mutate: createCabin } = useMutation({
-    mutationFn: (cabin) => createEditCabin(cabin),
-    onSuccess: async () => {
-      toast.success('Added cabin');
-      await queryClient.invalidateQueries({ queryKey: ['cabins'] });
-      reset();
-    },
-    onError: (err) => toast.error(err.message)
-  });
+  const { isCreating, createCabin } = useCreateCabin();
+  const { isEditing, editCabin } = useEditCabin();
 
-  const { isPending: isEditing, mutate: editCabin } = useMutation({
-    mutationFn: ({ newCabinData, id }) => createEditCabin(newCabinData, id),
-    onSuccess: async () => {
-      toast.success('Cabin edited');
-      await queryClient.invalidateQueries({ queryKey: ['cabins'] });
-    },
-    onError: (err) => toast.error(err.message)
-  });
-
-  const isWorking = isEditing || isPending;
+  const isWorking = isEditing || isCreating;  
 
   const handleOnSubmit = (data) => {
     const image = typeof data.image === 'string' ? data.image : data.image[0];
 
     if (isEditSession) editCabin({ newCabinData: { ...data, image: image }, id: editId })
-    else createCabin({ ...data, image: image });
+    else createCabin({ ...data, image: image }, { onSuccess: () => reset() })
   }
 
   const onError = (errors) => {
