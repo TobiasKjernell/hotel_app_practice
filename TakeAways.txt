@@ -57,5 +57,68 @@ Usages---
     //data is the return of all form inputs in a object.
   }
 
+PATTERNS
+Render Prop Pattern:
+A render prop is a prop that is a function.
+A component with a render prop receives a function as a prop and calls that function to determine what to render. 
 
+Inversion of Control - 
+When a component needs to allow a parent component to control its rendering logic or complex behavior, a render prop can be used to delegate that control. 
 
+HOC: 
+Higher-order components (HOC) are an advanced technique in React that is used for reusing component logic. It is the function that takes the original component and returns the new enhanced component. 
+
+Compound Component Pattern:
+
+import { useState, createContext, useContext } from "react";
+
+//1.create context
+const CounterContext = createContext();
+
+//2.parent component
+function Counter({ children }) {
+  const [count, setCount] = useState(0);
+  const increase = () => setCount((c) => c + 1);
+  const decrease = () => setCount((c) => c - 1);
+
+  return (
+    <CounterContext.Provider value={{ count, increase, decrease }}>
+      <span>{children}</span>
+    </CounterContext.Provider>
+  );
+}
+
+//3.child components
+const Count = () => {
+  const { count } = useContext(CounterContext);
+  return <span>{count}</span>;
+};
+
+const Label = ({ children }) => {
+  return <span>{children}</span>;
+};
+
+const Increase = ({ icon }) => {
+  const { increase } = useContext(CounterContext);
+  return <button onClick={increase}>{icon}</button>;
+};
+
+const Decrease = ({ icon }) => {
+  const { decrease } = useContext(CounterContext);
+  return <button onClick={decrease}>{icon}</button>;
+};
+//4.add child components as prop into parent component
+Counter.Count = Count;
+Counter.Label = Label;
+Counter.Increase = Increase;
+Counter.Decrease = Decrease;
+
+export default Counter;
+
+USAGE:
+   <Counter>
+        <Counter.Label>Counter</Counter.Label>
+        <Counter.Decrease icon="-" />
+        <Counter.Count />
+        <Counter.Increase icon="+" />
+      </Counter>
