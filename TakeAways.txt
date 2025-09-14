@@ -122,3 +122,16 @@ USAGE:
         <Counter.Count />
         <Counter.Increase icon="+" />
       </Counter>
+
+
+React Portal: a method used to render things on top of everything else but still
+respects the dom-tree.
+
+createPortal(<your element>, <where to put it>);
+So if we put it far down into a element but we know it's a modal or popups. We can direct it to another
+element to make it pop on top. Same idea behind gameObject.SetParent(<parent>) in Unity.
+And yet, all the props that are passed down to it - they follow.
+Good way to avoid conflict with css property: 'overflow: hidden' on a parent.
+
+cloneElement(<element>, {props})
+can be good if you want to pass down props that doesnt have access outside model.
