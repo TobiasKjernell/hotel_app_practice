@@ -135,3 +135,5 @@ Good way to avoid conflict with css property: 'overflow: hidden' on a parent.
 
 cloneElement(<element>, {props})
 can be good if you want to pass down props that doesnt have access outside model.
+
+useRef = current element.
