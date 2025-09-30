@@ -4,7 +4,7 @@ export const getCabins = async () => {
 
     const { data, error } = await supabase
         .from('cabins')
-        .select('*')
+        .select('*')    
 
     if (error) {
         console.error(error);

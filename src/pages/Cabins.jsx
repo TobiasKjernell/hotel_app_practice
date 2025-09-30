@@ -4,9 +4,7 @@ import AddCabin from "../features/cabins/AddCabin";
 import CabinTable from "../features/cabins/CabinTable-v2";
 import CabinTableOperations from "../features/cabins/CabinTableOperations";
 
-
 function Cabins() {
-
 
   return (
     <>

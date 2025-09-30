@@ -81,7 +81,7 @@ const CabinRow = ({ cabin }) => {
 
               <Modal.Open opens='delete'>
                 <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-              </Modal.Open>
+              </Modal.Open> 
 
             </Menus.List>
 
