@@ -34,7 +34,7 @@ export const createEditCabin = async (newCabin, id) => {
     let query = supabase.from('cabins');
     //Create cabin data if no 'id', if id: edit/update
     if (!id)
-        query = query.insert([{ ...newCabin, image: imagePath }])
+        query = query.insert([{ ...newCabin, image: imagePath }])   
 
     if (id) query = query.update({ ...newCabin, image: imagePath }).eq('id', id);
 
