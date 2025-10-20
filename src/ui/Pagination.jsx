@@ -72,7 +72,7 @@ const Pagination = ({ count }) => {
   }
   const previousPage = () => {
     const previous = currentPage === 1 ? currentPage : currentPage - 1;
-    searchParams.set('page', previous);
+    searchParams.set('page', previous); 
     setSearchParams(searchParams);
   }
 

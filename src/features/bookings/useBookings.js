@@ -8,10 +8,10 @@ export const useBookings = () => {
     const [searchParams] = useSearchParams();
 
     const filterValue = searchParams.get('status');
-    const filter = !filterValue || filterValue === 'all' ? null : { field: 'status', value: filterValue, method: 'gte' }
+    const filter = !filterValue || filterValue === 'all' ? null : { field: 'status', value: filterValue }
 
     const sortByRaw = searchParams.get('sortBy') || 'startDate-desc';
-    const [field, direction] = sortByRaw.split('-');
+    const [field, direction] = sortByRaw.split('-');    
     const sortBy = { field, direction };
 
     //Pagination
@@ -20,15 +20,16 @@ export const useBookings = () => {
     const { data: { data: bookings, count } = {}, error, isLoading } = useQuery({
         queryKey: ['bookings', filter, sortBy, page],
         queryFn: () => getBookings({ filter, sortBy, page })
-    })
+    })  
 
     //pre-fetch
     const pageCount = Math.ceil(count / PAGE_SIZE);
-    if (page < pageCount)
+    if (page < pageCount){
         queryClient.prefetchQuery({
             queryKey: ['bookings', filter, sortBy, page + 1],
             queryFn: () => getBookings({ filter, sortBy, page: page + 1 })
         })
+    }               
 
     if (page > 1)
         queryClient.prefetchQuery({

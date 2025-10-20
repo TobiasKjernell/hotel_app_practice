@@ -10,9 +10,9 @@ export const useCreateCabin = () => {
             toast.success('Added cabin');
             await queryClient.invalidateQueries({ queryKey: ['cabins'] });
             
-        },
+        },              
         onError: (err) => toast.error(err.message)
     });
 
     return { isCreating, createCabin };
-}
+}   
