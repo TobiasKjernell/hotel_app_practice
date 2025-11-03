@@ -5,13 +5,13 @@ import toast from "react-hot-toast";
 
 export const useLogin = () => {
     const navigate = useNavigate();
-    const ql = useQueryClient();        
+    const ql = useQueryClient();
     const { mutate: login, isPending: isLoggingIn } = useMutation({
         mutationFn: ({ email, password }) => loginApi({ email, password }),
         onSuccess: (user) => {
             toast.success(`Welcome ${user.user.email}`)
-            ql.setQueriesData['user', user]
-            navigate('/dashboard')
+            navigate('/dashboard', { replace: true })
+            ql.setQueryData(['user'], user.user)  
         },
         onError: err => {
             console.log(err);
