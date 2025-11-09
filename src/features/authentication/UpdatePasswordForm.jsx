@@ -14,12 +14,12 @@ function UpdatePasswordForm() {
 
   function onSubmit({ password }) {
     updateUser({ password }, { onSuccess: reset });
-  }
+  } 
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow
-        label="Password (min 8 characters)"
+        label="New password (min 8 chars)"
         error={errors?.password?.message}
       >
         <Input
@@ -31,7 +31,7 @@ function UpdatePasswordForm() {
             required: "This field is required",
             minLength: {
               value: 8,
-              message: "Password needs a minimum of 8 characters",
+              message: "Password needs a minimum of 8 chars",
             },
           })}
         />
