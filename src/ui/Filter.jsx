@@ -55,5 +55,5 @@ const Filter = ({ filterField, options }) => {
     </StyledFilter>
   )
 } 
-
+  
 export default Filter;
