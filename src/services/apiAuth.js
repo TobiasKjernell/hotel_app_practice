@@ -57,7 +57,7 @@ export const updateCurrentUser = async ({ password, fullName, avatar }) => {
     let { data, error } = await supabase.auth.updateUser(updateData)
 
     if (error) throw new Error(error.message);
-    if (!avatar) return data;
+    if (!avatar) return data;       
 
     const fileName = `avatar-${data.user.id}-${Math.random()}`
 
@@ -67,7 +67,7 @@ export const updateCurrentUser = async ({ password, fullName, avatar }) => {
     const { data: updatedUser, error: error2 } = await supabase.auth.updateUser({
         data: {
             avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`
-        }
+        }   
     })
     if (error2) throw new Error(error2.message);
 
