@@ -138,7 +138,7 @@ const DurationChart = ({ confirmedStays }) => {
   const { isDarkMode } = useDarkMode();
   const startData = isDarkMode ? startDataDark : startDataLight;
   const data = prepareData(startData, confirmedStays);
-  console.log(startData);  
+
   return <ChartBox>
     <Heading as={'h2'}>Stays duration summary</Heading>
     <ResponsiveContainer width='100%' height={240}>
